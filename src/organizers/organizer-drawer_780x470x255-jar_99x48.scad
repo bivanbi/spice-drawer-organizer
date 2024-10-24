@@ -11,6 +11,7 @@ function side_attachment_slot_width() = 5;
 function side_attachment_slot_depth() = 3;
 
 module organizer_side(ol = 0) {
+    diff_workaround = 0.1;
     difference() {
         linear_extrude(side_length())
         difference() {
@@ -21,8 +22,8 @@ module organizer_side(ol = 0) {
         }
 
         if (ol > 0) {
-            translate([0, 0, ol]) cube([side_attachment_slot_width(), side_attachment_slot_depth(), foot_wall_minimum_thickness()]);
-            translate([organizer_width() - side_attachment_slot_width(), 0, ol]) cube([side_attachment_slot_width(), side_attachment_slot_depth(), foot_wall_minimum_thickness()]);
+            translate([-diff_workaround, - diff_workaround, ol]) cube([side_attachment_slot_width() + diff_workaround, side_attachment_slot_depth() + diff_workaround, foot_wall_minimum_thickness()]);
+            translate([organizer_width() - side_attachment_slot_width() + diff_workaround, - diff_workaround, ol]) cube([side_attachment_slot_width() + diff_workaround, side_attachment_slot_depth() + diff_workaround, foot_wall_minimum_thickness()]);
         }
     }
 }
