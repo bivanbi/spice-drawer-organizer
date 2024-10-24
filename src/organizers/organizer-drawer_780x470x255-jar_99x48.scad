@@ -10,8 +10,29 @@ function side_height() = jar_round_edge_radius();
 function side_attachment_slot_width() = 5;
 function side_attachment_slot_depth() = 3;
 
+function row_attachment_slot_length() = 10;
+function row_attachment_slot_width() = 2;
+function row_attachment_slot_depth() = 3;
+function row_attachment_distance_from_edge() = 2;
+
+module row_attachment_slot() {
+    diff_workaround = 0.1;
+
+    offset_x = row_attachment_distance_from_edge() - row_attachment_distance_from_edge() + side_wall_minimum_thickness() * 2;
+    offset_x = row_attachment_distance_from_edge();
+    offset_y = - diff_workaround;
+    offset_z = side_length() / 2 - row_attachment_slot_length() / 2;
+    depth = row_attachment_slot_depth() + diff_workaround;
+
+    translate([offset_x, offset_y, offset_z]) cube([row_attachment_slot_width(), depth, row_attachment_slot_length()]);
+
+    other_side_offset_x = organizer_width() - row_attachment_distance_from_edge() - row_attachment_slot_width();
+    translate([other_side_offset_x, offset_y, offset_z]) cube([row_attachment_slot_width(), depth, row_attachment_slot_length()]);
+}
+
 module organizer_side(ol = 0) {
     diff_workaround = 0.1;
+
     difference() {
         linear_extrude(side_length())
         difference() {
@@ -28,6 +49,8 @@ module organizer_side(ol = 0) {
             offset_x = organizer_width() - side_attachment_slot_width() + diff_workaround;
             translate([offset_x, - diff_workaround, offset_z]) cube([side_attachment_slot_width() + diff_workaround, side_attachment_slot_depth() + diff_workaround, foot_wall_minimum_thickness()]);
         }
+
+        row_attachment_slot();
     }
 }
 
