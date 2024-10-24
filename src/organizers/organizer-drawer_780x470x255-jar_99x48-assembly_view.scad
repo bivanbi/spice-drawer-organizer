@@ -4,14 +4,14 @@ use <organizer-drawer_780x470x255-jar_99x48.scad>;
 
 
 function rows() = 5;
-function columns() = 1;
+function columns() = 5;
 
 function overlap() = 18; // mm
 function overlap_loose_fit() = 3;
 
 function rotate_x() = -40;
-function column_offset_y() = 10;
-function column_offset_z() = -10;
+function column_offset_y() = 0;
+function column_offset_z() = 10;
 
 module column() {
     for (i = [0:rows() - 1]) {
@@ -27,8 +27,8 @@ module column() {
 }
 
 module rotated_column() {
-    translate([0, 0, jar_width()])
-    rotate([rotate_x(), 0, 0]) column();
+    translate([0, jar_width(), 0])
+    rotate([rotate_x(), 0, 0]) translate([0, - organizer_width(), 0])column();
 }
 
 module sketch() {
