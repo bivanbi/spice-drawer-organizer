@@ -19,9 +19,9 @@ module column() {
         offset_z = i * (jar_height() - overlap());
         translate([0, offset_y, offset_z]) jar();
         if (i > 0) {
-            color("red") translate([0, offset_y, offset_z]) organizer(ol = overlap(), lf = overlap_loose_fit());
+            color("red") translate([0, offset_y, offset_z]) organizer(ol = overlap(), lf = overlap_loose_fit(), fp = true);
         } else {
-            color("green") translate([0, offset_y, offset_z]) organizer();
+            color("green") translate([0, offset_y, offset_z]) organizer(ol = overlap());
         }
     }
 }
