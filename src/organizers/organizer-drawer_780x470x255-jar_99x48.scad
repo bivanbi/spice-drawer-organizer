@@ -31,7 +31,7 @@ module organizer_foot(lf = 0, ol = 0) {
     attachmen_slot_offset_y = organizer_width() + lf;
     attachmen_slot_offset_x = organizer_width() - side_attachment_slot_width();
     union() {
-        %cube([organizer_width(), organizer_width() + lf, foot_wall_minimum_thickness()]);
+        cube([organizer_width(), organizer_width() + lf, foot_wall_minimum_thickness()]);
         if (ol > 0) {
             translate([0, attachmen_slot_offset_y, 0]) cube([side_attachment_slot_width(), side_attachment_slot_depth(), foot_wall_minimum_thickness()]);
             translate([attachmen_slot_offset_x, attachmen_slot_offset_y, 0]) cube([side_attachment_slot_width(), side_attachment_slot_depth(), foot_wall_minimum_thickness()]);
