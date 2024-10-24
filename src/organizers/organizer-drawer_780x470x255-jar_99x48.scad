@@ -22,8 +22,11 @@ module organizer_side(ol = 0) {
         }
 
         if (ol > 0) {
-            translate([-diff_workaround, - diff_workaround, ol]) cube([side_attachment_slot_width() + diff_workaround, side_attachment_slot_depth() + diff_workaround, foot_wall_minimum_thickness()]);
-            translate([organizer_width() - side_attachment_slot_width() + diff_workaround, - diff_workaround, ol]) cube([side_attachment_slot_width() + diff_workaround, side_attachment_slot_depth() + diff_workaround, foot_wall_minimum_thickness()]);
+            offset_z = side_length() - ol;
+            translate([- diff_workaround, - diff_workaround, offset_z]) cube([side_attachment_slot_width() + diff_workaround, side_attachment_slot_depth() + diff_workaround, foot_wall_minimum_thickness()]);
+
+            offset_x = organizer_width() - side_attachment_slot_width() + diff_workaround;
+            translate([offset_x, - diff_workaround, offset_z]) cube([side_attachment_slot_width() + diff_workaround, side_attachment_slot_depth() + diff_workaround, foot_wall_minimum_thickness()]);
         }
     }
 }
@@ -54,5 +57,4 @@ module organizer(
     }
 }
 
-organizer(lf = 5, ol = 15);
-
+organizer(lf = 3, ol = 18);
