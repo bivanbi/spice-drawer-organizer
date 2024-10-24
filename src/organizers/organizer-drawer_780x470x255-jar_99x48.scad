@@ -31,12 +31,12 @@ module organizer_side(ol = 0) {
     }
 }
 
-module organizer_foot(lf = 0, ol = 0) {
+module organizer_foot(lf = 0, ol = 0, fp = false) {
     attachmen_slot_offset_y = organizer_width() + lf;
     attachmen_slot_offset_x = organizer_width() - side_attachment_slot_width();
     union() {
         cube([organizer_width(), organizer_width() + lf, foot_wall_minimum_thickness()]);
-        if (ol > 0) {
+        if (fp) {
             translate([0, attachmen_slot_offset_y, 0]) cube([side_attachment_slot_width(), side_attachment_slot_depth(), foot_wall_minimum_thickness()]);
             translate([attachmen_slot_offset_x, attachmen_slot_offset_y, 0]) cube([side_attachment_slot_width(), side_attachment_slot_depth(), foot_wall_minimum_thickness()]);
         }
@@ -46,15 +46,16 @@ module organizer_foot(lf = 0, ol = 0) {
 module organizer(
     ol = 0, // overlap - used to determine where the foot of the next organizer will attach to the side of the current one
     lf = 0, // loose fit - distance between two organizers so it is easy to slide in jar into overlapping organizers
+    fp = false, // add attachment pins to foot
 ) {
     translate([jar_width() + side_wall_minimum_thickness(), jar_width() + side_wall_minimum_thickness(), -side_wall_minimum_thickness()])
     rotate([0, 0, 180])
     difference() {
         union() {
             organizer_side(ol);
-            organizer_foot(lf = lf, ol = ol);
+            organizer_foot(lf = lf, ol = ol, fp = fp);
         }
     }
 }
 
-organizer(lf = 3, ol = 18);
+organizer(lf = 3, ol = 18, fp = true);
