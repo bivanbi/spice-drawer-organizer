@@ -22,7 +22,7 @@ module organizer_side(ol = 0) {
         }
 
         if (ol > 0) {
-            offset_z = side_length() - ol;
+            offset_z = side_length() - ol - foot_wall_minimum_thickness();
             translate([- diff_workaround, - diff_workaround, offset_z]) cube([side_attachment_slot_width() + diff_workaround, side_attachment_slot_depth() + diff_workaround, foot_wall_minimum_thickness()]);
 
             offset_x = organizer_width() - side_attachment_slot_width() + diff_workaround;
