@@ -1,12 +1,9 @@
 // These are the usable inner dimension of the drawer.
 function drawer_inner_depth() = 471; // millimeters
-function drawer_inner_width() = 1000; // TODO measurement is missing, this is just a placeholder!
+function drawer_inner_width() = 780;
 function drawer_inner_front_height() = 255;
 function drawer_inner_back_height() = 160;
 function drawer_inner_height() = max(drawer_inner_front_height(), drawer_inner_back_height());
-
-function drawer_bottom_side_intrusion_width() = 15;
-function drawer_bottom_side_intrusion_height() = 15; // TODO measurement is missing, this is just a placeholder!
 
 function drawer_side_wall_thickness() = 15; // Does not matter in regards to usable space
 
