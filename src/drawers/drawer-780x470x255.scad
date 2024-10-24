@@ -63,25 +63,6 @@ module drawer_side(s = "left") {
     }
 }
 
-module drawer_bottom_side_intrusion_left() {
-    rotate([0, -90, -90])
-    linear_extrude(drawer_inner_depth())
-    polygon([
-        // it is a bit tricky because of the rotation
-        [0, 0],
-        [drawer_bottom_side_intrusion_height(), 0],
-        [0, drawer_bottom_side_intrusion_width()],
-    ]);
-}
-
-module drawer_bottom_side_intrusion_right() {
-    translate([drawer_inner_width() + drawer_side_wall_thickness(), 0, 0])
-    mirror([1, 0, 0])
-    drawer_bottom_side_intrusion_left();
-}
-
-
-
 module drawer_back() {
     width = drawer_inner_width() + 2* drawer_side_wall_thickness();
     height = drawer_inner_back_height();
@@ -100,8 +81,6 @@ module drawer() {
         drawer_front();
         drawer_side(s = "left");
         drawer_side(s = "right");
-        drawer_bottom_side_intrusion_left();
-        drawer_bottom_side_intrusion_right();
         drawer_back();
     }
 }
