@@ -13,15 +13,6 @@ function rotate_x() = -40;
 function column_offset_y() = 10;
 function column_offset_z() = -10;
 
-module rotated_jar() {
-    translate([0, 0, jar_width()])
-    rotate([jar_rotate_x(), 0, 0]) jar();
-}
-
-module rotated_organizer() {
-    rotate([jar_rotate_x(), 0, 0]) translate([0, -31,36])organizer();
-}
-
 module column() {
     for (i = [0:rows() - 1]) {
         offset_y = i * (organizer_width() + overlap_loose_fit());
