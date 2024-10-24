@@ -1,0 +1,16 @@
+.idea
+**/.env
+
+# rendered 3D models
+**/*.3mf
+**/*.amf
+**/*.csg
+**/*.dxf
+**/*.gcode
+**/*.obj
+**/*.off
+**/*.stl
+**/*.svg
+
+# rendered bitmap image
+**/*.png
