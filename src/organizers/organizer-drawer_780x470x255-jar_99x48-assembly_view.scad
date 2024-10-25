@@ -27,6 +27,7 @@ module column(n = 0) {
         } else {
             color(alternating_color_green(n)) translate([0, offset_y, offset_z]) organizer(ol = overlap());
         }
+        color(alternating_color_blue(n)) translate([0, offset_y, offset_z]) row_attachment_pin();
     }
 }
 

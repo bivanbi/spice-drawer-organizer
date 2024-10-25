@@ -15,6 +15,10 @@ function row_attachment_slot_width() = 2;
 function row_attachment_slot_depth() = 3;
 function row_attachment_distance_from_edge() = 2;
 
+function row_attachment_pin_wall_thickness() = side_wall_minimum_thickness();
+function row_attachment_pin_loose_fit() = 0.05;
+function row_attachment_pin_width() = row_attachment_distance_from_edge() * 4 - row_attachment_pin_loose_fit();
+
 module row_attachment_slot() {
     diff_workaround = 0.1;
 
@@ -27,6 +31,25 @@ module row_attachment_slot() {
 
     other_side_offset_x = organizer_width() - row_attachment_distance_from_edge() - row_attachment_slot_width();
     translate([other_side_offset_x, offset_y, offset_z]) cube([row_attachment_slot_width(), depth, row_attachment_slot_length()]);
+}
+
+module row_attachment_pin() {
+    length = row_attachment_slot_length() - row_attachment_pin_loose_fit();
+    depth = row_attachment_slot_depth() - row_attachment_pin_loose_fit();
+    width = row_attachment_slot_width() - row_attachment_pin_loose_fit();
+
+    pin_offset_x = organizer_width() - row_attachment_pin_width() / 2 - side_wall_minimum_thickness();
+    pin_offset_y = organizer_width() - row_attachment_pin_wall_thickness();
+    pin_offset_z = side_length() / 2 - row_attachment_slot_length() / 2 - foot_wall_minimum_thickness();
+
+    translate([pin_offset_x, pin_offset_y, pin_offset_z])
+    linear_extrude(length) {
+        union() {
+            square([row_attachment_pin_width(), row_attachment_pin_wall_thickness()]);
+            translate([0, - depth]) square([width, depth]);
+            translate([row_attachment_pin_width() - width, - depth]) square([width, depth]);
+        }
+    }
 }
 
 module organizer_side(ol = 0) {
@@ -81,3 +104,4 @@ module organizer(
 }
 
 organizer(lf = 3, ol = 18, fp = true);
+color("blue") row_attachment_pin();
