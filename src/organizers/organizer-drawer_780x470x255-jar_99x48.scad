@@ -1,7 +1,7 @@
 use <../drawers/drawer-780x470x255.scad>;
 use <../jars/jar-rectangular-99x48.scad>;
 
-function side_wall_minimum_thickness() = 1;
+function side_wall_minimum_thickness() = 2;
 function foot_wall_minimum_thickness() = side_wall_minimum_thickness();
 function organizer_width() = jar_width() + side_wall_minimum_thickness() * 2;
 function side_length() = jar_height() + side_wall_minimum_thickness();
