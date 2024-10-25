@@ -9,9 +9,9 @@ function columns() = 5;
 function overlap() = 18; // mm
 function overlap_loose_fit() = 3;
 
-function rotate_x() = -40;
-function column_offset_y() = 0;
-function column_offset_z() = 10;
+function rotate_x() = -38;
+function column_offset_y() = -4;
+function column_offset_z() = 3;
 
 function alternating_color_green(n) = n % 2 == 0 ? "green" : "darkgreen";
 function alternating_color_blue(n) = n % 2 == 0 ? "blue" : "darkblue";
