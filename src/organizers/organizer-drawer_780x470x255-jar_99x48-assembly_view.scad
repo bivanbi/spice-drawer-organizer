@@ -13,8 +13,8 @@ function rotate_x() = -38;
 function column_offset_y() = -4;
 function column_offset_z() = 3;
 
-function alternating_color_green(n) = n % 2 == 0 ? "green" : "darkgreen";
-function alternating_color_blue(n) = n % 2 == 0 ? "blue" : "darkblue";
+function alternating_color_green(n) = n % 2 == 0 ? "green" : "lightgreen";
+function alternating_color_blue(n) = n % 2 == 0 ? "blue" : "lightblue";
 function alternating_color_red(n) = n % 2 == 0 ? "red" : "darkred";
 
 module column(n = 0) {
