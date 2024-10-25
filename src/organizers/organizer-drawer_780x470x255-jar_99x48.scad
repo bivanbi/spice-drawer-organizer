@@ -7,9 +7,9 @@ function organizer_width() = jar_width() + side_wall_minimum_thickness() * 2;
 function side_length() = jar_height() + side_wall_minimum_thickness();
 function side_height() = jar_round_edge_radius();
 
-function side_attachment_slot_width() = 5;
-function side_attachment_slot_depth() = 3;
-function side_attachment_pin_loose_fit() = 0.05;
+function column_attachment_slot_width() = 5;
+function column_attachment_slot_depth() = 3;
+function column_attachment_pin_loose_fit() = 0.05;
 
 function row_attachment_slot_length() = 10;
 function row_attachment_slot_width() = 2;
@@ -67,10 +67,10 @@ module organizer_side(ol = 0) {
 
         if (ol > 0) {
             offset_z = side_length() - ol - foot_wall_minimum_thickness();
-            translate([- diff_workaround, - diff_workaround, offset_z]) cube([side_attachment_slot_width() + diff_workaround, side_attachment_slot_depth() + diff_workaround, foot_wall_minimum_thickness()]);
+            translate([- diff_workaround, - diff_workaround, offset_z]) cube([column_attachment_slot_width() + diff_workaround, column_attachment_slot_depth() + diff_workaround, foot_wall_minimum_thickness()]);
 
-            offset_x = organizer_width() - side_attachment_slot_width() + diff_workaround;
-            translate([offset_x, - diff_workaround, offset_z]) cube([side_attachment_slot_width() + diff_workaround, side_attachment_slot_depth() + diff_workaround, foot_wall_minimum_thickness()]);
+            offset_x = organizer_width() - column_attachment_slot_width() + diff_workaround;
+            translate([offset_x, - diff_workaround, offset_z]) cube([column_attachment_slot_width() + diff_workaround, column_attachment_slot_depth() + diff_workaround, foot_wall_minimum_thickness()]);
         }
 
         row_attachment_slot();
@@ -78,13 +78,13 @@ module organizer_side(ol = 0) {
 }
 
 module organizer_foot(lf = 0, ol = 0, fp = false) {
-    pin_width = side_attachment_slot_width() - side_attachment_pin_loose_fit();
-    pin_depth = side_attachment_slot_depth() - side_attachment_pin_loose_fit();
-    pin_thickness = foot_wall_minimum_thickness() - side_attachment_pin_loose_fit();
+    pin_width = column_attachment_slot_width() - column_attachment_pin_loose_fit();
+    pin_depth = column_attachment_slot_depth() - column_attachment_pin_loose_fit();
+    pin_thickness = foot_wall_minimum_thickness() - column_attachment_pin_loose_fit();
 
     pin_offset_y = organizer_width() + lf;
     pin_offset_x = organizer_width() - pin_width;
-    pin_offset_z = side_attachment_pin_loose_fit() / 2;
+    pin_offset_z = column_attachment_pin_loose_fit() / 2;
 
     union() {
         cube([organizer_width(), organizer_width() + lf, foot_wall_minimum_thickness()]);
