@@ -18,7 +18,6 @@ function row_attachment_distance_from_edge() = 2;
 module row_attachment_slot() {
     diff_workaround = 0.1;
 
-    offset_x = row_attachment_distance_from_edge() - row_attachment_distance_from_edge() + side_wall_minimum_thickness() * 2;
     offset_x = row_attachment_distance_from_edge();
     offset_y = - diff_workaround;
     offset_z = side_length() / 2 - row_attachment_slot_length() / 2;
