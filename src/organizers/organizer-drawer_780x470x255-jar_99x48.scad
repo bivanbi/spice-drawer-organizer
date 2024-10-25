@@ -9,6 +9,7 @@ function side_height() = jar_round_edge_radius();
 
 function side_attachment_slot_width() = 5;
 function side_attachment_slot_depth() = 3;
+function side_attachment_pin_loose_fit() = 0.05;
 
 function row_attachment_slot_length() = 10;
 function row_attachment_slot_width() = 2;
@@ -77,13 +78,19 @@ module organizer_side(ol = 0) {
 }
 
 module organizer_foot(lf = 0, ol = 0, fp = false) {
-    attachmen_slot_offset_y = organizer_width() + lf;
-    attachmen_slot_offset_x = organizer_width() - side_attachment_slot_width();
+    pin_width = side_attachment_slot_width() - side_attachment_pin_loose_fit();
+    pin_depth = side_attachment_slot_depth() - side_attachment_pin_loose_fit();
+    pin_thickness = foot_wall_minimum_thickness() - side_attachment_pin_loose_fit();
+
+    pin_offset_y = organizer_width() + lf;
+    pin_offset_x = organizer_width() - pin_width;
+    pin_offset_z = side_attachment_pin_loose_fit() / 2;
+
     union() {
         cube([organizer_width(), organizer_width() + lf, foot_wall_minimum_thickness()]);
         if (fp) {
-            translate([0, attachmen_slot_offset_y, 0]) cube([side_attachment_slot_width(), side_attachment_slot_depth(), foot_wall_minimum_thickness()]);
-            translate([attachmen_slot_offset_x, attachmen_slot_offset_y, 0]) cube([side_attachment_slot_width(), side_attachment_slot_depth(), foot_wall_minimum_thickness()]);
+            translate([0, pin_offset_y, pin_offset_z]) cube([pin_width, pin_depth, pin_thickness]);
+            translate([pin_offset_x, pin_offset_y, pin_offset_z]) cube([pin_width, pin_depth, pin_thickness]);
         }
     }
 }
