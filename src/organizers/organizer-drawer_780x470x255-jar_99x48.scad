@@ -39,11 +39,6 @@ module row_attachment_pin() {
     depth = row_attachment_slot_depth() - row_attachment_pin_loose_fit();
     width = row_attachment_slot_width() - row_attachment_pin_loose_fit();
 
-    pin_offset_x = organizer_width() - row_attachment_pin_width() / 2 - side_wall_minimum_thickness();
-    pin_offset_y = organizer_width() - row_attachment_pin_wall_thickness();
-    pin_offset_z = side_length() / 2 - row_attachment_slot_length() / 2 - foot_wall_minimum_thickness();
-
-    translate([pin_offset_x, pin_offset_y, pin_offset_z])
     linear_extrude(length) {
         union() {
             square([row_attachment_pin_width(), row_attachment_pin_wall_thickness()]);
@@ -51,6 +46,15 @@ module row_attachment_pin() {
             translate([row_attachment_pin_width() - width, - depth]) square([width, depth]);
         }
     }
+}
+
+// aligned with the actual organizer row attachment slot for easier previewing
+module row_attachment_pin_aligned() {
+    pin_offset_x = organizer_width() - row_attachment_pin_width() / 2 - side_wall_minimum_thickness();
+    pin_offset_y = organizer_width() - row_attachment_pin_wall_thickness();
+    pin_offset_z = side_length() / 2 - row_attachment_slot_length() / 2 - foot_wall_minimum_thickness();
+    translate([pin_offset_x, pin_offset_y, pin_offset_z])
+        row_attachment_pin();
 }
 
 module organizer_side(ol = 0) {
@@ -111,4 +115,3 @@ module organizer(
 }
 
 organizer(lf = 3, ol = 18, fp = true);
-color("blue") row_attachment_pin();
