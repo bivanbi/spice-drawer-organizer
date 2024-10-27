@@ -81,9 +81,10 @@ function vertical_console_cutaway_row_attachment_slont_clearance() = 2;
 module organizer_side(ol = 0) {
     diff_workaround = 0.1;
 
-    vertical_console_slot_offset_z = side_length() / 2 + vertical_console_shaft_cutaway_radius() + row_attachment_slot_length() / 2 + vertical_console_cutaway_row_attachment_slont_clearance();
-    vertical_console_slot1_offset_x = - vertical_console_slot_diff_workaround();
-    vertical_console_slot2_offset_x = organizer_width() - vertical_console_slot_depth();
+    vertical_console_a_slot_offset_z = side_length() / 2 + vertical_console_shaft_cutaway_radius() + row_attachment_slot_length() / 2 + vertical_console_cutaway_row_attachment_slont_clearance();
+    vertical_console_b_slot_offset_z = vertical_console_shaft_cutaway_radius() + vertical_console_cutaway_row_attachment_slont_clearance();
+    vertical_console_side_a_offset_x = - vertical_console_slot_diff_workaround();
+    vertical_console_side_b_offset_x = organizer_width() - vertical_console_slot_depth();
 
     difference() {
         linear_extrude(side_length())
@@ -103,8 +104,11 @@ module organizer_side(ol = 0) {
         }
 
         row_attachment_slot();
-        translate([vertical_console_slot1_offset_x, 0, vertical_console_slot_offset_z]) vertical_console_cutaway();
-        translate([vertical_console_slot2_offset_x, 0, vertical_console_slot_offset_z]) vertical_console_cutaway();
+        translate([vertical_console_side_a_offset_x, 0, vertical_console_a_slot_offset_z]) vertical_console_cutaway();
+        translate([vertical_console_side_b_offset_x, 0, vertical_console_a_slot_offset_z]) vertical_console_cutaway();
+
+        translate([vertical_console_side_a_offset_x, 0, vertical_console_b_slot_offset_z]) vertical_console_cutaway();
+        translate([vertical_console_side_b_offset_x, 0, vertical_console_b_slot_offset_z]) vertical_console_cutaway();
     }
 }
 
