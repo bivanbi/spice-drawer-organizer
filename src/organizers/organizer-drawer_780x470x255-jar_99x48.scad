@@ -28,10 +28,11 @@ module row_attachment_slot() {
 
 function row_attachment_pin_wall_thickness() = side_wall_minimum_thickness();
 function row_attachment_pin_loose_fit() = 0.05;
+function row_attachment_pin_length_loose_fit() = 1.0;
 function row_attachment_pin_width() = row_attachment_distance_from_edge() * 4 - row_attachment_pin_loose_fit();
 
 module row_attachment_pin() {
-    length = row_attachment_slot_length() - row_attachment_pin_loose_fit();
+    length = row_attachment_slot_length() - row_attachment_pin_length_loose_fit();
     depth = row_attachment_slot_depth() - row_attachment_pin_loose_fit();
     width = row_attachment_slot_width() - row_attachment_pin_loose_fit();
 
