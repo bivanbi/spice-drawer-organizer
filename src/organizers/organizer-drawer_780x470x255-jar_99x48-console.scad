@@ -55,4 +55,8 @@ module console(
     translate([side_b_offset_x, row_2_offset_y, row_2_offset_z]) console_shaft_arm(rx = rx);
 }
 
-console(h = 10, rx = 90);;
+rotate = 39;
+rotate([-rotate, 0, 0]) {
+%organizer();
+console(h = 10, rx = 39);;
+}
