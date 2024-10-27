@@ -47,5 +47,3 @@ module sketch() {
 
 %drawer();
 sketch();
-//column(0);
-//console(0);
