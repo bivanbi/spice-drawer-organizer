@@ -1,6 +1,7 @@
 use <../drawers/drawer-780x470x255.scad>;
 use <../jars/jar-rectangular-99x48.scad>;
 use <organizer-drawer_780x470x255-jar_99x48.scad>;
+use <organizer-drawer_780x470x255-jar_99x48-console.scad>;
 
 
 function rows() = 5;
@@ -28,6 +29,7 @@ module column(n = 0) {
             color(alternating_color_green(n)) translate([0, offset_y, offset_z]) organizer(ol = overlap());
         }
         color(alternating_color_blue(n)) translate([0, offset_y, offset_z]) row_attachment_pin_aligned();
+        color(alternating_color_blue(n)) translate([0,offset_y, offset_z]) console(h = 10, rx = - rotate_x());
     }
 }
 
@@ -45,3 +47,5 @@ module sketch() {
 
 %drawer();
 sketch();
+//column(0);
+//console(0);

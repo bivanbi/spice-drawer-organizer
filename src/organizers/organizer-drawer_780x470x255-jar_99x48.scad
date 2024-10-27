@@ -78,13 +78,13 @@ function column_attachment_slot_depth() = 3;
 function column_attachment_pin_loose_fit() = 0.05;
 function vertical_console_cutaway_row_attachment_slont_clearance() = 2;
 
-module organizer_side(ol = 0) {
-    diff_workaround = 0.1;
+function vertical_console_row_1_slot_offset_z() = vertical_console_shaft_cutaway_radius() + vertical_console_cutaway_row_attachment_slont_clearance();
+function vertical_console_row_2_slot_offset_z() = side_length() / 2 + vertical_console_shaft_cutaway_radius() + row_attachment_slot_length() / 2 + vertical_console_cutaway_row_attachment_slont_clearance();
+function vertical_console_side_a_offset_x() = - vertical_console_slot_diff_workaround();
+function vertical_console_side_b_offset_x() = organizer_width() - vertical_console_slot_depth();
 
-    vertical_console_a_slot_offset_z = side_length() / 2 + vertical_console_shaft_cutaway_radius() + row_attachment_slot_length() / 2 + vertical_console_cutaway_row_attachment_slont_clearance();
-    vertical_console_b_slot_offset_z = vertical_console_shaft_cutaway_radius() + vertical_console_cutaway_row_attachment_slont_clearance();
-    vertical_console_side_a_offset_x = - vertical_console_slot_diff_workaround();
-    vertical_console_side_b_offset_x = organizer_width() - vertical_console_slot_depth();
+module organizer_side(ol = 0) {
+    diff_workaround = vertical_console_slot_diff_workaround();
 
     difference() {
         linear_extrude(side_length())
@@ -104,11 +104,11 @@ module organizer_side(ol = 0) {
         }
 
         row_attachment_slot();
-        translate([vertical_console_side_a_offset_x, 0, vertical_console_a_slot_offset_z]) vertical_console_cutaway();
-        translate([vertical_console_side_b_offset_x, 0, vertical_console_a_slot_offset_z]) vertical_console_cutaway();
+        translate([vertical_console_side_a_offset_x(), 0, vertical_console_row_1_slot_offset_z()]) vertical_console_cutaway();
+        translate([vertical_console_side_b_offset_x(), 0, vertical_console_row_1_slot_offset_z()]) vertical_console_cutaway();
 
-        translate([vertical_console_side_a_offset_x, 0, vertical_console_b_slot_offset_z]) vertical_console_cutaway();
-        translate([vertical_console_side_b_offset_x, 0, vertical_console_b_slot_offset_z]) vertical_console_cutaway();
+        translate([vertical_console_side_a_offset_x(), 0, vertical_console_row_2_slot_offset_z()]) vertical_console_cutaway();
+        translate([vertical_console_side_b_offset_x(), 0, vertical_console_row_2_slot_offset_z()]) vertical_console_cutaway();
     }
 }
 
