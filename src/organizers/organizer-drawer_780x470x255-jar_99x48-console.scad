@@ -33,6 +33,34 @@ module console_shaft_arm(rx = 0) {
     }
 }
 
+function column_thickness() = console_shaft_arm_width();
+function column_end_thickness() = column_thickness() - 3;
+function column_end_height() = 5;
+
+module column(
+    h = 30,
+    rx = 0
+) {
+    h = h - column_end_height();
+
+    end_offset_x = (column_thickness() - column_end_thickness()) / 2;
+    end_offset_y = end_offset_x;
+    translate([0, column_thickness(), 0]) rotate([rx, 180, 180])
+    union() {
+        cube([column_thickness(), column_thickness(), h]);
+        translate([end_offset_x, end_offset_y, h]) cube([column_end_thickness(), column_end_thickness(), column_end_height()]);
+    }
+}
+
+module base_plate(
+    rx = 0
+) {
+    linear_extrude(column_end_height())
+    union() {
+
+    }
+}
+
 module console(
     h = 0, // height
     rx = 0, // rotate x
@@ -41,22 +69,39 @@ module console(
 
     side_a_offset_x = - side_wall_minimum_thickness();
     side_b_offset_x = organizer_width() - vertical_console_slot_depth() + side_a_offset_x;
+    side_b_column_offset_x = side_b_offset_x - column_thickness() + console_shaft_arm_thickness();
 
     row_1_offset_y = organizer_width() - vertical_console_shaft_diameter() / 2 - side_wall_minimum_thickness() - vertical_console_shaft_distance_from_edge();
     row_1_offset_z = vertical_console_row_1_slot_offset_z() - foot_wall_minimum_thickness();
+    row_1_column_height = h;
+
+    column_offset_constant = 6.55; // FIXME: calculate this
+
+    row_1_column_offset_y = row_1_offset_y + column_offset_constant;
+    row_1_column_offset_z = row_1_offset_z;
 
     row_2_offset_y = row_1_offset_y;
+
+    row_2_column_offset_y = row_2_offset_y + column_offset_constant;
     row_2_offset_z = vertical_console_row_2_slot_offset_z() - foot_wall_minimum_thickness();
+    row_2_column_offset_z = row_2_offset_z;
+    row_2_column_height = h + (row_2_column_offset_z - row_1_column_offset_z) * cos(rx);
 
     translate([side_a_offset_x, row_1_offset_y, row_1_offset_z]) console_shaft_arm(rx = rx);
+    translate([side_a_offset_x, row_1_column_offset_y, row_1_column_offset_z]) column(rx = rx, h = row_1_column_height);
+
     translate([side_b_offset_x, row_1_offset_y, row_1_offset_z]) console_shaft_arm(rx = rx);
+    translate([side_b_column_offset_x, row_1_column_offset_y, row_1_column_offset_z]) column(rx = rx, h = row_1_column_height);
 
     translate([side_a_offset_x, row_2_offset_y, row_2_offset_z]) console_shaft_arm(rx = rx);
+    translate([side_a_offset_x, row_2_column_offset_y, row_2_column_offset_z]) column(rx = rx, h = row_2_column_height);
+
     translate([side_b_offset_x, row_2_offset_y, row_2_offset_z]) console_shaft_arm(rx = rx);
+    translate([side_b_column_offset_x, row_2_column_offset_y, row_2_column_offset_z]) column(rx = rx, h = row_2_column_height);
 }
 
 rotate = 39;
 rotate([-rotate, 0, 0]) {
 %organizer();
-console(h = 10, rx = 39);;
+console(h = 10, rx = 39);
 }
