@@ -52,6 +52,22 @@ module column(
     }
 }
 
+module pair_of_columns(
+    h = 30,
+    rx = 0,
+    side_a_offset_x = 0,
+    side_b_offset_x = 0,
+    offset_y = 0,
+    offset_z = 0,
+) {
+
+    echo("side_a_offset_x = ", side_a_offset_x);
+    union() {
+        translate([side_a_offset_x, offset_y, offset_z]) column(h = h, rx = rx);
+        translate([side_b_offset_x, offset_y, offset_z]) column(h = h, rx = rx);
+    }
+}
+
 module base_plate(
     rx = 0
 ) {
@@ -88,16 +104,14 @@ module console(
     row_2_column_height = h + (row_2_column_offset_z - row_1_column_offset_z) * cos(rx);
 
     translate([side_a_offset_x, row_1_offset_y, row_1_offset_z]) console_shaft_arm(rx = rx);
-    translate([side_a_offset_x, row_1_column_offset_y, row_1_column_offset_z]) column(rx = rx, h = row_1_column_height);
-
     translate([side_b_offset_x, row_1_offset_y, row_1_offset_z]) console_shaft_arm(rx = rx);
-    translate([side_b_column_offset_x, row_1_column_offset_y, row_1_column_offset_z]) column(rx = rx, h = row_1_column_height);
+
+    pair_of_columns(h = row_1_column_height, rx = rx, side_a_offset_x = side_a_offset_x, side_b_offset_x = side_b_column_offset_x, offset_y = row_1_column_offset_y, offset_z = row_1_column_offset_z);
 
     translate([side_a_offset_x, row_2_offset_y, row_2_offset_z]) console_shaft_arm(rx = rx);
-    translate([side_a_offset_x, row_2_column_offset_y, row_2_column_offset_z]) column(rx = rx, h = row_2_column_height);
-
     translate([side_b_offset_x, row_2_offset_y, row_2_offset_z]) console_shaft_arm(rx = rx);
-    translate([side_b_column_offset_x, row_2_column_offset_y, row_2_column_offset_z]) column(rx = rx, h = row_2_column_height);
+
+    pair_of_columns(h = row_2_column_height, rx = rx, side_a_offset_x = side_a_offset_x, side_b_offset_x = side_b_column_offset_x, offset_y = row_2_column_offset_y, offset_z = row_2_column_offset_z);
 }
 
 rotate = 39;
