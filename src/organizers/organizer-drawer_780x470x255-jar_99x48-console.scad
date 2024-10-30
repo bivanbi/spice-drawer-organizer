@@ -52,6 +52,36 @@ module column(
     }
 }
 
+function crosslink_thickness() = column_thickness();
+
+module pair_of_columns_crosslink(
+    h = 30,
+    rx = 0,
+    side_a_offset_x = 0,
+    side_b_offset_x = 0,
+    offset_y = 0,
+    offset_z = 0,
+) {
+    x = organizer_width();
+    h = h - column_end_height();
+
+    echo("x = ", x);
+    echo("h = ", h);
+
+    translate([0, column_thickness(), 0]) rotate([rx, 180, 180]) {
+        if (h <= column_thickness()) {
+            echo("h <= column_thickness()");
+            cube([x, crosslink_thickness(), h]);
+        } else {
+            color("red") translate([0, crosslink_thickness(), 0]) rotate([90, 0, 0])
+            linear_extrude(crosslink_thickness()) {
+                polygon(points=[[0, 0], [0, column_thickness()],  [x, h], [x, h - column_thickness()]]);
+                polygon(points=[[0, h], [0, h - column_thickness()],  [x, 0], [x, column_thickness()]]);
+            }
+        }
+    }
+}
+
 module pair_of_columns(
     h = 30,
     rx = 0,
@@ -60,11 +90,10 @@ module pair_of_columns(
     offset_y = 0,
     offset_z = 0,
 ) {
-
-    echo("side_a_offset_x = ", side_a_offset_x);
     union() {
         translate([side_a_offset_x, offset_y, offset_z]) column(h = h, rx = rx);
         translate([side_b_offset_x, offset_y, offset_z]) column(h = h, rx = rx);
+        translate([side_a_offset_x, offset_y, offset_z]) pair_of_columns_crosslink(h = h, rx = rx);
     }
 }
 
