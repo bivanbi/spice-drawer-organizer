@@ -38,7 +38,7 @@ function column_thickness() = console_shaft_arm_width();
 function column_end_thickness() = column_thickness() - 3;
 function column_end_height() = 5;
 
-module column(
+module console_column(
     h = 30,
     rx = 0
 ) {
@@ -92,8 +92,8 @@ module pair_of_columns(
     offset_z = 0,
 ) {
     union() {
-        translate([side_a_offset_x, offset_y, offset_z]) column(h = h, rx = rx);
-        translate([side_b_offset_x, offset_y, offset_z]) column(h = h, rx = rx);
+        translate([side_a_offset_x, offset_y, offset_z]) console_column(h = h, rx = rx);
+        translate([side_b_offset_x, offset_y, offset_z]) console_column(h = h, rx = rx);
         translate([side_a_offset_x, offset_y, offset_z]) pair_of_columns_crosslink(h = h, rx = rx);
     }
 }
