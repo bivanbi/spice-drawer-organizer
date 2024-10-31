@@ -202,7 +202,7 @@ module console(
 
 rotate = 39;
 rotate([-rotate, 0, 0]) {
-%organizer();
-console(h = 10, rx = 39);
+    %organizer();
+    console(h = 10, rx = rotate);
 }
 color("grey") base_plate();
