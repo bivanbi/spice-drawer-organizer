@@ -8,6 +8,7 @@ function console_shaft_arm_offset_y() = console_shaft_arm_diagonal();
 function console_shaft_arm_center_offset_x() = console_shaft_arm_diagonal() - console_shaft_arm_width() / 2;
 
 function console_shaft_minimum_height() = console_shaft_arm_offset_y();
+function console_shaft_loose_fit_diameter() = vertical_console_shaft_diameter() + 0.2;
 
 module console_shaft_arm(rx = 0) {
     diagonal = console_shaft_arm_diagonal();
@@ -28,7 +29,7 @@ module console_shaft_arm(rx = 0) {
                 translate([diagonal - console_shaft_arm_width(), half_diagonal]) square([console_shaft_arm_width(), half_diagonal]);
             }
 
-            circle(d = vertical_console_shaft_diameter());
+            circle(d = console_shaft_loose_fit_diameter());
         }
     }
 }
