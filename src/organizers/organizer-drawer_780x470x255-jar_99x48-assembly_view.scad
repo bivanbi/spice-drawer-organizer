@@ -31,7 +31,7 @@ module column(n = 0) {
         offset_y = i * (organizer_width() + overlap_loose_fit());
         offset_z = i * (jar_height() - overlap());
         column_h = (column_offset_z() + offset_y * sin(column_angle));
-        echo("offset_y = ",offset_y, ", offset_y * sin(rotate_x()) = ", offset_y * cos(rotate_x()));
+
         translate([0, offset_y, offset_z]) jar();
         if (i > 0) {
             color(alternating_color_red(n)) translate([0, offset_y, offset_z]) organizer(ol = overlap(), lf = overlap_loose_fit(), fp = true);
