@@ -98,12 +98,69 @@ module pair_of_columns(
     }
 }
 
-module base_plate(
-    rx = 0
-) {
-    linear_extrude(column_end_height())
+module foot() {
+    thickness = (column_thickness() - column_end_thickness()) / 2;
     union() {
+        linear_extrude(column_end_height()) {
+            translate([0, 0]) square([thickness, column_thickness()]);
+            translate([column_end_thickness() + thickness, 0]) square([thickness, column_thickness()]);
+            translate([0, 0]) square([column_thickness(), thickness]);
+            translate([0, column_end_thickness() + thickness, 0]) square([column_thickness(), thickness]);
+        }
+    }
+}
 
+function base_plate_crossling_thickness() = 2;
+
+module base_plate() {
+    side_a_offset_x = - side_wall_minimum_thickness();
+    side_b_offset_x = organizer_width() - vertical_console_slot_depth() + side_a_offset_x;
+    side_b_column_offset_x = side_b_offset_x - column_thickness() + console_shaft_arm_thickness();
+
+    row_1_offset_y = 46.37; // TODO calculate this
+    offset_z = -40; // TODO calculate this
+
+    translate([side_a_offset_x, row_1_offset_y, offset_z]) foot();
+    translate([side_b_column_offset_x, row_1_offset_y, offset_z]) foot();
+
+    row_2_offset_y = 81.3; // TODO calculate this
+
+    union() {
+        translate([side_a_offset_x, row_2_offset_y, offset_z]) foot();
+        translate([side_b_column_offset_x, row_2_offset_y, offset_z]) foot();
+        translate([side_a_offset_x, row_1_offset_y, offset_z]) {
+        linear_extrude(base_plate_crossling_thickness())
+            polygon(points = [
+                    [column_thickness(), 0],
+                    [column_thickness(), column_thickness()],
+                    [organizer_width() - column_thickness(), row_2_offset_y - row_1_offset_y + column_thickness()],
+                    [organizer_width() - column_thickness(), row_2_offset_y - row_1_offset_y],
+                ]);
+
+        linear_extrude(base_plate_crossling_thickness())
+            polygon(points = [
+                    [column_thickness(), row_2_offset_y - row_1_offset_y],
+                    [column_thickness(), column_thickness() + row_2_offset_y - row_1_offset_y],
+                    [organizer_width() - column_thickness(), column_thickness()],
+                    [organizer_width() - column_thickness(), 0],
+            ]);
+
+        linear_extrude(base_plate_crossling_thickness())
+            polygon(points = [
+                    [0, column_thickness()],
+                    [0, row_2_offset_y - row_1_offset_y],
+                    [column_thickness(), row_2_offset_y - row_1_offset_y],
+                    [column_thickness(), column_thickness()],
+            ]);
+
+        linear_extrude(base_plate_crossling_thickness())
+            polygon(points = [
+                    [organizer_width() - column_thickness(), column_thickness()],
+                    [organizer_width() - column_thickness(), row_2_offset_y - row_1_offset_y],
+                    [organizer_width(), row_2_offset_y - row_1_offset_y],
+                    [organizer_width(), column_thickness()],
+            ]);
+        }
     }
 }
 
@@ -149,3 +206,4 @@ rotate([-rotate, 0, 0]) {
 %organizer();
 console(h = 10, rx = 39);
 }
+color("grey") base_plate();
