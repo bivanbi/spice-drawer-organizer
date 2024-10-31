@@ -70,6 +70,7 @@ module pair_of_columns_crosslink(
         if (h <= column_thickness()) {
             cube([x, crosslink_thickness(), h]);
         } else {
+            color("green") cube([x, crosslink_thickness(), crosslink_thickness()]);
             color("red") translate([0, crosslink_thickness(), 0]) rotate([90, 0, 0])
             linear_extrude(crosslink_thickness()) {
                 polygon(points=[[0, 0], [0, column_thickness()],  [x, h], [x, h - column_thickness()]]);
