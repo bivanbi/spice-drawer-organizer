@@ -66,12 +66,8 @@ module pair_of_columns_crosslink(
     x = organizer_width();
     h = h - column_end_height();
 
-    echo("x = ", x);
-    echo("h = ", h);
-
     translate([0, column_thickness(), 0]) rotate([rx, 180, 180]) {
         if (h <= column_thickness()) {
-            echo("h <= column_thickness()");
             cube([x, crosslink_thickness(), h]);
         } else {
             color("red") translate([0, crosslink_thickness(), 0]) rotate([90, 0, 0])
