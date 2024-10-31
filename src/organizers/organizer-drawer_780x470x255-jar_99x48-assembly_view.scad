@@ -41,9 +41,6 @@ module column(n = 0) {
         color(alternating_color_blue(n)) translate([0, offset_y, offset_z]) row_attachment_pin_aligned();
         color(alternating_color_blue(n)) translate([0,offset_y, offset_z]) console(h = column_h, rx = - rotate_x());
     }
-
-    //cube_rotate = asin()
-    translate([0, column_elevation - side_wall_minimum_thickness(), 0]) rotate([column_angle, 0, 0]) cube([3, 3, 550]);
 }
 
 module rotated_column(n = 0) {
