@@ -37,19 +37,21 @@ module console_shaft_arm(rx = 0) {
 function column_thickness() = console_shaft_arm_width();
 function column_end_thickness() = column_thickness() - 3;
 function column_end_height() = 5;
+function column_end_loose_fit() = 0.2;
 
 module console_column(
     h = 30,
     rx = 0
 ) {
     h = h - column_end_height();
+    end_thickness = column_end_thickness() - column_end_loose_fit();
 
-    end_offset_x = (column_thickness() - column_end_thickness()) / 2;
+    end_offset_x = (column_thickness() - end_thickness) / 2;
     end_offset_y = end_offset_x;
     translate([0, column_thickness(), 0]) rotate([rx, 180, 180])
     union() {
         cube([column_thickness(), column_thickness(), h]);
-        translate([end_offset_x, end_offset_y, h]) cube([column_end_thickness(), column_end_thickness(), column_end_height()]);
+        translate([end_offset_x, end_offset_y, h]) cube([end_thickness, end_thickness, column_end_height()]);
     }
 }
 
