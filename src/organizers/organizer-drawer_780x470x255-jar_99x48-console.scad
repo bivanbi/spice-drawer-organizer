@@ -109,7 +109,8 @@ module foot() {
     }
 }
 
-function base_plate_crossling_thickness() = 2;
+function base_plate_crossling_thickness() = column_end_height();
+function base_plate_front_overhang() = 20;
 
 module base_plate() {
     side_a_offset_x = - side_wall_minimum_thickness();
@@ -158,6 +159,23 @@ module base_plate() {
                     [organizer_width() - column_thickness(), row_2_offset_y - row_1_offset_y],
                     [organizer_width(), row_2_offset_y - row_1_offset_y],
                     [organizer_width(), column_thickness()],
+            ]);
+
+        // front overhang for stability - center of mass being too forward
+        linear_extrude(base_plate_crossling_thickness())
+            polygon(points = [
+                    [0, 0],
+                    [0, - base_plate_front_overhang()],
+                    [column_thickness(), - base_plate_front_overhang()],
+                    [column_thickness(), 0],
+            ]);
+
+        linear_extrude(base_plate_crossling_thickness())
+            polygon(points = [
+                    [organizer_width() - column_thickness(), 0],
+                    [organizer_width() - column_thickness(), - base_plate_front_overhang()],
+                    [organizer_width(), - base_plate_front_overhang()],
+                    [organizer_width(), 0],
             ]);
         }
     }
