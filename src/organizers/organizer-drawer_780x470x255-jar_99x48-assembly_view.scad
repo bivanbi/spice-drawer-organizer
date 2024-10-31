@@ -39,7 +39,7 @@ module column(n = 0) {
             color(alternating_color_green(n)) translate([0, offset_y, offset_z]) organizer(ol = overlap());
         }
         color(alternating_color_blue(n)) translate([0, offset_y, offset_z]) row_attachment_pin_aligned();
-        color(alternating_color_blue(n)) translate([0,offset_y, offset_z]) console(h = column_h, rx = - rotate_x());
+        color(alternating_color_blue(n)) translate([0, offset_y, offset_z]) console(h = column_h, rx = - rotate_x());
     }
 }
 
