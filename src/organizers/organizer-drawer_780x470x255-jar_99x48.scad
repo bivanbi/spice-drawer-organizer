@@ -57,7 +57,7 @@ module row_attachment_pin_aligned() {
 function vertical_console_slot_depth() = 2;
 function vertical_console_slot_diff_workaround() = 0.1;
 function vertical_console_shaft_diameter() = 5;
-function vertical_console_shaft_distance_from_edge() = 1;
+function vertical_console_shaft_distance_from_edge() = 0;
 function vertical_console_shaft_minimum_clearance() = 5;
 function vertical_console_shaft_cutaway_radius() = vertical_console_shaft_distance_from_edge() + vertical_console_shaft_diameter() + vertical_console_shaft_minimum_clearance();
 
