@@ -9,6 +9,7 @@ function console_shaft_arm_center_offset_x() = console_shaft_arm_diagonal() - co
 
 function console_shaft_minimum_height() = console_shaft_arm_offset_y();
 function console_shaft_loose_fit_diameter() = vertical_console_shaft_diameter() + 0.3;
+function console_shaft_hook_reinforcement() = 1;
 
 module console_shaft_arm(rx = 0) {
     diagonal = console_shaft_arm_diagonal();
@@ -21,7 +22,7 @@ module console_shaft_arm(rx = 0) {
         difference() {
             union() {
                 hull() {
-                    circle(console_shaft_arm_width() / 2 + 1);
+                    circle(console_shaft_arm_width() / 2 + console_shaft_hook_reinforcement());
                     translate([diagonal / 2, 0])
                         rotate(45)
                             square([console_shaft_arm_width(), console_shaft_arm_width()]);
